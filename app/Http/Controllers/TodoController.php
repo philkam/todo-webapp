@@ -88,7 +88,7 @@ class TodoController extends Controller
         }
 
         $todo -> save();
-        return response() -> json([
+        return response() ->  json([
             'todo' => $todo,
             'status' => 'success'
         ]);
