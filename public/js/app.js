@@ -15374,7 +15374,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  //set up state management
+  data: function data() {
+    return {
+      item: {
+        name: ""
+      }
+    };
+  }
+});
 
 /***/ }),
 
@@ -38641,8 +38650,25 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "addItem" }, [
     _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.item.name,
+          expression: "item.name",
+        },
+      ],
       staticClass: "input",
       attrs: { type: "text", placeholder: "Add todo" },
+      domProps: { value: _vm.item.name },
+      on: {
+        input: function ($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.$set(_vm.item, "name", $event.target.value)
+        },
+      },
     }),
     _vm._v(" "),
     _c(

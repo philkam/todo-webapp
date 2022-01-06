@@ -1,6 +1,6 @@
 <template>
     <div class="addItem">
-        <input type="text" class="input" placeholder="Add todo">
+        <input type="text" class="input" placeholder="Add todo" v-model="item.name">
         <button class="addButton" >
 
             <font-awesome-icon
@@ -13,6 +13,14 @@
 
 <script>
 export default {
+    //set up state management
+    data: function(){
+        return{
+            item:{
+                name: ""
+            }
+        }
+    }
 
 }
 </script>
