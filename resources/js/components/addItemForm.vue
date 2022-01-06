@@ -2,10 +2,12 @@
     <div class="addItem">
         <input type="text" class="input" placeholder="Add todo" v-model="item.name">
         <button class="addButton" >
+            
 
             <font-awesome-icon
             icon="plus"
-            class="plus" />
+            class="plus" 
+            @click="addItem()"/>
         </button>
     </div>
   
@@ -18,6 +20,23 @@ export default {
         return{
             item:{
                 name: ""
+            }
+        }
+    },
+
+    methods:{
+        addItem(){
+            if(this.item.name !== ''){
+                axios.post('api/todo/store', {
+                    todo: this.item.name
+
+                }).then(response => {
+                    if(response.status >= 200 && response.status < 300){
+                        this.item.name = null
+                    }
+                })
+
+
             }
         }
     }

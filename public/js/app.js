@@ -15374,6 +15374,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   //set up state management
   data: function data() {
@@ -15382,6 +15384,21 @@ __webpack_require__.r(__webpack_exports__);
         name: ""
       }
     };
+  },
+  methods: {
+    addItem: function addItem() {
+      var _this = this;
+
+      if (this.item.name !== '') {
+        axios.post('api/todo/store', {
+          todo: this.item.name
+        }).then(function (response) {
+          if (response.status >= 200 && response.status < 300) {
+            _this.item.name = null;
+          }
+        });
+      }
+    }
   }
 });
 
@@ -38678,6 +38695,11 @@ var render = function () {
         _c("font-awesome-icon", {
           staticClass: "plus",
           attrs: { icon: "plus" },
+          on: {
+            click: function ($event) {
+              return _vm.addItem()
+            },
+          },
         }),
       ],
       1
