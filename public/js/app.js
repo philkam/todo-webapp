@@ -15440,11 +15440,26 @@ __webpack_require__.r(__webpack_exports__);
   props: ['item'],
   methods: {
     updateTodo: function updateTodo() {
-      axios.post('api/todo/update' + this.item.id, {
+      var _this = this;
+
+      axios.post('api/todo/update/' + this.item.id, {
         completed: this.item.completed
       }).then(function (response) {
         if (response.status >= 200 && response.status < 300) {
           alert('Item updated successfully');
+
+          _this.$emit('reloadTodos');
+        }
+      });
+    },
+    removeTodo: function removeTodo() {
+      var _this2 = this;
+
+      axios.get('api/todo/delete/' + this.item.id).then(function (response) {
+        if (response.status >= 200 && response.status < 300) {
+          alert('Item deleted successfully');
+
+          _this2.$emit('reloadTodos');
         }
       });
     }
@@ -15465,6 +15480,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _listItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./listItem */ "./resources/js/components/listItem.vue");
+//
 //
 //
 //
@@ -39138,7 +39154,14 @@ var render = function () {
     _vm._v(" "),
     _c(
       "button",
-      { staticClass: "delete" },
+      {
+        staticClass: "delete",
+        on: {
+          click: function ($event) {
+            return _vm.removeTodo()
+          },
+        },
+      },
       [_c("font-awesome-icon", { attrs: { icon: "trash" } })],
       1
     ),
@@ -39173,7 +39196,17 @@ var render = function () {
       return _c(
         "div",
         { key: index },
-        [_c("list-item", { staticClass: "item", attrs: { item: item } })],
+        [
+          _c("list-item", {
+            staticClass: "item",
+            attrs: { item: item },
+            on: {
+              reloadTodos: function ($event) {
+                return _vm.getTodos()
+              },
+            },
+          }),
+        ],
         1
       )
     }),

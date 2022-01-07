@@ -27,20 +27,21 @@ export default {
             axios.post('api/todo/update/'+this.item.id, {
                 completed:this.item.completed
             }).then(response => {
-                if(response.status >= 200 && response.status < 300)[
+                if(response.status >= 200 && response.status < 300){
                     alert('Item updated successfully')
-                ]
-            
+                    this.$emit('reloadTodos')
+                }
+
             })
         },
 
         removeTodo(){
             axios.get('api/todo/delete/'+ this.item.id).then(response => {
-                if(response.status >= 200 && response.status < 300)[
+                if(response.status >= 200 && response.status < 300){
                     alert('Item deleted successfully')
-
-                ]
-                 
+                    this.$emit('reloadTodos')
+                }
+               
             })
         }
     }
